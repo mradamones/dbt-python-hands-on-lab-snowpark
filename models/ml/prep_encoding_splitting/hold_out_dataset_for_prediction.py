@@ -5,8 +5,8 @@ def model(dbt, session):
     dbt.config(packages=["pandas"], tags="predict")
 
     # get upstream data
-    encoding = dbt.ref("covariate_encoding").to_pandas()
-    
+    encoding = dbt.ref("covariate_encoding")
+    encoding = pd.DataFrame(encoding.collect())
     # variable for year instead of hardcoding it 
     year=2020
 

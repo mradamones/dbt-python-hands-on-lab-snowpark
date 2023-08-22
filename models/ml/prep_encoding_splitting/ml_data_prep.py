@@ -5,8 +5,9 @@ def model(dbt, session):
     dbt.config(packages=["pandas"])
 
     # get upstream data
-    fct_results = dbt.ref("mrt_results_circuits").to_pandas()
 
+    fct_results = dbt.ref("mrt_results_circuits")
+    fct_results = pd.DataFrame(fct_results.collect())
     # provide years so we do not hardcode dates in filter command
     start_year=2010
     end_year=2020

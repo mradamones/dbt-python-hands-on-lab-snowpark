@@ -8,8 +8,8 @@ def model(dbt, session):
   dbt.config(packages=["pandas","numpy","scikit-learn"])
 
   # get upstream data
-  data = dbt.ref("ml_data_prep").to_pandas()
-
+  data = dbt.ref("ml_data_prep")
+  data = pd.DataFrame(data.collect())
   # list out covariates we want to use in addition to outcome variable we are modeling - position
   covariates = data[['RACE_YEAR','RACE_NAME','GRID','CONSTRUCTOR_NAME','DRIVER','DRIVERS_AGE_YEARS','DRIVER_CONFIDENCE','CONSTRUCTOR_RELAIBLITY','TOTAL_PIT_STOPS_PER_RACE','ACTIVE_DRIVER','ACTIVE_CONSTRUCTOR', 'DRIVER_POSITION']]
  

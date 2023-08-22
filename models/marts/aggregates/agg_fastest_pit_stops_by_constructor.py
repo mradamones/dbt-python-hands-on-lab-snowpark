@@ -6,8 +6,8 @@ def model(dbt, session):
     dbt.config(packages=["pandas","numpy"])
 
     # get upstream data
-    pit_stops_joined = dbt.ref("mrt_pit_stops").to_pandas()
-
+    pit_stops_joined = dbt.ref("mrt_pit_stops")
+    pit_stops_joined = pd.DataFrame(pit_stops_joined.collect())
     # provide year so we do not hardcode dates 
     year=2021
 
